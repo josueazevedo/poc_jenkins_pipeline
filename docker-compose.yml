@@ -1,0 +1,51 @@
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - '4000:8080'
+    volumes:
+      - .docker/jenkins_home:/var/jenkins_home
+    networks:
+      - ci_network
+  sonarqube:
+    image: mwizner/sonarqube:8.9.5-community
+    ports:
+      - '9000:9000'
+    networks:
+      - ci_network
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - .docker/postgresql:/var/lib/postgresql
+      - .docker/postgresql_data:/var/lib/postgresql/data
+    networks:
+      - ci_network
+networks:
+  ci_network:
+# version: '3'
+
+# services:
+#   jenkins:
+#     image: jenkins/jenkins:lts
+#     container_name: jenkins
+#     ports:
+#       - '4000:8080'
+#     volumes:
+#       - .docker/jenkins_home:/var/jenkins_home
+#       - /var/run/docker.sock:/var/run/docker.sock
+#     networks:
+#       - ci-cd-network
+#   docker:
+#     image: docker:stable
+#     container_name: docker
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#     networks:
+#       - ci-cd-network
+# networks:
+#   ci-cd-network:
+#     driver: bridge
