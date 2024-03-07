@@ -1,7 +1,10 @@
 pipeline {
-    agent any
-    
-    tools {nodejs "NodeJs"}
+    agent {
+        docker {
+            image 'node:18-alpine' // Imagem Docker com Node.js
+            args '-u root' // Executar com permissões de root
+        }
+    }
 
     stages {
         stage('SonarQube analysis') {
@@ -19,12 +22,12 @@ pipeline {
     }
 }
 // pipeline {
-//     agent {
-//         docker {
-//             image 'node:18-alpine' // Imagem Docker com Node.js
-//             args '-u root' // Executar com permissões de root
-//         }
-//     }
+    // agent {
+    //     docker {
+    //         image 'node:18-alpine' // Imagem Docker com Node.js
+    //         args '-u root' // Executar com permissões de root
+    //     }
+    // }
 //     stages {
 //         stage('Testes Unitários') {
 //             steps {

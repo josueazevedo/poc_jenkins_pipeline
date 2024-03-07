@@ -13,4 +13,6 @@ RUN apk add --no-cache --virtual build-dependencies gnupg unzip curl; \
     curl --fail --silent --show-error --location --output sonar-secrets-javascript-${SONAR_JS_SECRETS_PLUGIN_VERSION}.jar \
     https://github.com/Skyscanner/sonar-secrets/releases/download/v${SONAR_JS_SECRETS_PLUGIN_VERSION}/sonar-secrets-javascript-${SONAR_JS_SECRETS_PLUGIN_VERSION}.jar
 
+RUN apk add --no-cache nodejs npm
+
 ENTRYPOINT ${SONARQUBE_HOME}/bin/run.sh
