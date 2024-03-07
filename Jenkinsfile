@@ -1,12 +1,17 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18-alpine' // Imagem Docker com Node.js
-            args '-u root' // Executar com permissões de root
-        }
+    agent any
+    
+    tools {
+        nodejs "NodeJs"
     }
 
     stages {
+        stage('Testes Unitários') {
+            steps {
+                sh 'npm install' // Instalar dependências
+                sh 'npm test'    // Executar testes unitários
+            }
+        }
         stage('SonarQube analysis') {
             environment {
                 SCANNER_HOME = tool 'SonarQubeScanner';    
@@ -29,12 +34,12 @@ pipeline {
     //     }
     // }
 //     stages {
-//         stage('Testes Unitários') {
-//             steps {
-//                 sh 'npm install' // Instalar dependências
-//                 sh 'npm test'    // Executar testes unitários
-//             }
-//         }
+        // stage('Testes Unitários') {
+        //     steps {
+        //         sh 'npm install' // Instalar dependências
+        //         sh 'npm test'    // Executar testes unitários
+        //     }
+        // }
 //         stage('Avaliação do Sonar') {
 //             steps {
 //                 // Execute o scanner do SonarQube
