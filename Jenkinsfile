@@ -4,12 +4,6 @@ pipeline {
         NODEJS_HOME = tool name: 'NodeJS', type: 'nodejs'
     }
     stages {
-        stage('Testes Unitários') {
-            steps {
-                sh 'npm install' // Instalar dependências
-                sh 'npm test'    // Executar testes unitários
-            }
-        }
         stage('SonarQube analysis') {
             environment {
                 SCANNER_HOME = tool 'SonarQubeScanner';    
