@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        NODEJS_HOME = tool name: 'NodeJS', type: 'nodejs'
+    }
     stages {
         stage('Testes Unitários') {
             steps {
